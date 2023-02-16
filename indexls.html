@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)http://fangyi.zstu.edu.cn:5008/adultpass/passcode -->
+<html xmlns="http://www.w3.org/1999/xhtml" style="background-color: rgb(184, 232, 249);"><head runat="server"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>本科生通行码</title>
+    <link href="./继续教育通行码_files/layer.css" type="text/css" rel="stylesheet">
+    <link href="main.css" type="text/css" rel="stylesheet">
+    <script src="./继续教育通行码_files/layer.js.下载" type="text/javascript"></script>
+    <script src="./继续教育通行码_files/jquery.min.js.下载" type="text/javascript"></script>
+    <script>
+        var myVar=setInterval(function(){myTimer()},1000);
+         function myTimer(){
+         var d = new Date();
+         var year = d.getFullYear();
+         var month = d.getMonth() + 1;
+         var day = d.getDate();
+         var hour = d.getHours();
+         var minute = d.getMinutes();
+         var second = d.getSeconds();
+         
+         var a=(month)+"月"+day+"日 "+ChangeTime(hour)+":"+ChangeTime(minute)+":"+ChangeTime(second);
+         document.getElementById("sj").innerHTML=a;
+         }
+         function ChangeTime(obj){
+             return obj<10?('0'+obj):obj;
+         }
+     </script>
+    <script type="text/javascript">
+        let _data = {"Hs":[],"Ym":[{"Prm1":"2021-12-09","Prm2":"3","Prm3":null},{"Prm1":"2021-06-04","Prm2":"2","Prm3":null},{"Prm1":"2021-04-23","Prm2":"1","Prm3":null}],"Jkm":[],"Xcm":[]};
+        $(() =>{
+            $("html").css("background-color", "#b8e8f9");
+            getTime();
+            setInterval(() => {
+               getTime();
+            }, 1000);
+        });
+        function getTime(){
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var day = date.getDate();
+            var hour = date.getHours();
+            var minute = date.getMinutes();
+            var second = date.getSeconds();
+
+            if(hour.toString().length<2)
+                hour = "0"+hour;
+            if(minute.toString().length<2)
+                minute = "0"+minute;
+            if(second.toString().length<2)
+                second = "0"+second;
+
+            $("#sj").text(month + "月" + day + "日  " + hour + ":" + minute + ":" + second);
+        }
+        function GetInfo(tag){
+           let info = eval("_data." + tag);
+           var html = "<div class='tips-info'>";
+           if(tag == 'Hs'){
+               html += "<div class='tips-title'><div>核酸检测时间</div><div>结果</div></div>";
+            }
+            if(tag == 'Ym'){
+                html += "<div class='tips-title'><div>疫苗接种时间</div><div>针数</div></div>";
+            }
+            if(tag == 'Jkm'){
+                html += "<div class='tips-title'><div>最近更新时间</div><div>码发放地</div><div>码状态</div></div>";
+            }
+            for(let i = 0;i < info.length; i++){
+                html += `<div class='tips-content'>`
+                + `<div>` + info[i].Prm1 + `</div>`
+                + `<div>` + info[i].Prm2 + `</div>`
+                + (info[i].Prm3 == null ? `` : "<div>" + info[i].Prm3 + "</div>" )
+                + `</div>`;
+            }
+            html += "</div>"
+            alertOpen(html);
+        }
+        let lOpen;
+        //弹出内容
+        function alertOpen(html){
+            lOpen = layer.open({
+                shadeClose: true
+                ,content: html
+                ,anim: 'up'
+                ,style: 'position:fixed; left:3%; top:500px; width:94%; height:700px; border: none; -webkit-animation-duration: .5s; animation-duration: .5s; border-radius: 25px;'
+            })
+        }
+        function alertTips(content){
+            //提示
+            layer.open({
+                content: "<span style='font-size: 35px;'>" + content + "</span>"
+                ,skin: 'msg'
+                ,time: 2 //2秒后自动关闭
+            });
+        }
+    </script>
+</head>
+<body>
+    <div style="width: 100%;">
+        <!-- 个人信息 -->
+        <div class="top-body">
+            <div class="top-info" style="background: url('card.png') no-repeat; background-size: 100%; background-position: center;">
+                <div class="top-banner">
+                    <img src="schoolname.png"><br>
+                </div>
+                <div class="top-xm">
+                    李四 &nbsp;&nbsp;<span>本科生</span>
+                </div>
+                <div class="top-xgh">
+                    学工号：202014312
+                </div>
+                <div class="top-dw">
+                    学院/班级：20机械工程1班
+                </div>
+                <div class="top-dw">
+                    通行时间：2023年1月6日-2023年6月25日
+                </div>
+            </div>
+        </div>
+        <!-- 中间内容 -->
+        <div class="mid-info">
+            <div class="mid-time" onclick="window.location.reload();">
+                <span id="rq"></span>
+                <span id="sj" style="background: url('refresh.png') no-repeat; background-size: 55px; background-position: right;padding:0 70px 0 70px; ">2月6日  16:17:41</span>
+            </div>
+            <!-- 二维码 -->
+            <div class="mid-ewm">
+                <!-- <img id="ewm" src="./继续教育通行码_files/err.png"> -->
+                <div id="test"></div>
+            </div>
+            <div class="mid-yqsj">
+                <div class="mid-jkm">
+                        <span style="color:rgb(0, 255, 17);">已获取到健康码信息</span>
+                </div>
+                <div class="mid-ym">
+                        <span>已完成<span class="ym-span">3</span>疫苗接种</span>
+                </div>
+            </div>
+            <div class="mid-msg" style="background-color: rgb(255 106 106 / 20%)">
+                <span>今日未打卡，请进行每日健康打卡！</span>
+            </div>
+        </div>
+        <script src="https://cdn.bootcdn.net/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        var qrcode = new QRCode("test", {
+            text: "http://www.runoob.com",	//要生成二维码的链接
+            width: 500,	//二维码的宽度
+            height: 500,	//二维码的高度
+            colorDark : "#026cfd",	//前景色
+            colorLight : "transparent",	//背景色
+            correctLevel : QRCode.CorrectLevel.H	//纠错等级
+        });
+    </script>
+        <!-- 中间内容区域 -->
+        <div class="bottom-info">
+            <div class="bottom-left">
+                <!-- 核酸 -->
+                <div class="bottom-hs" style="background: url('hs-blue.png') no-repeat; background-size: 300px;">
+                    <div class="hs-sj">00-00 00:00</div>
+                    <div class="hs-jg"><div>采样7天内</div>无数据</div>
+                    <div class="hs-mc">核酸检测<img src="edit.png"></div>
+                </div>
+            </div>
+            <div class="bottom-right" style="
+                border: 6px solid #2b9ad3;
+                border-radius: 40px;
+                color: #2b9ad3;
+                font-size: 37px;
+                width: 500px;
+                text-align: center;
+                height: 85%;
+                font-weight: 200;
+                flex-direction: column;
+                display: flex;
+                justify-content: space-around;
+            ">
+                <div>
+                    <p><span style="color: #2b9ad3; font-size: 45px; font-weight: 600;">请</span>做好<span style="color: #2b9ad3;font-size: 45px; font-weight: 600;">个人防护</span></p>
+                    <p>科学<span style="font-size: 45px;font-weight:600;color: #2b9ad3;">佩戴口罩</span></p>
+                    <p>当好自己<span style="color: #2b9ad3;font-size: 45px;font-weight:600;">健康</span>的</p>
+                    <p style="color: #2b9ad3;font-size: 45px;font-weight:600;">第一责任人</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body></html>
